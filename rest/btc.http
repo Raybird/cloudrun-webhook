@@ -1,0 +1,35 @@
+### POST
+POST http://localhost:8080/btc
+Content-Type: application/json
+
+{
+    "url": "https://notify-api.line.me/api/notify",
+    "token": "S8GCfmqx2jTFPzsGmySbBItIpMrinhqvIVxVtH3z9aK",
+    "message": "\n訊息 from Node.js"
+}
+
+### LINE
+POST https://notify-api.line.me/api/notify
+Authorization: Bearer S8GCfmqx2jTFPzsGmySbBItIpMrinhqvIVxVtH3z9aK
+Content-Type: application/x-www-form-urlencoded
+
+message=\nfoobar
+
+### https://trendinghook-35hnajh7qq-de.a.run.app
+POST https://trendinghook-35hnajh7qq-de.a.run.app/btc
+Content-Type: application/json
+
+{
+    "url": "https://notify-api.line.me/api/notify",
+    "token": "S8GCfmqx2jTFPzsGmySbBItIpMrinhqvIVxVtH3z9aK",
+    "message": "\n訊息 from Node.js"
+}
+
+
+### https://trendinghook-35hnajh7qq-de.a.run.app
+POST https://trendinghook-35hnajh7qq-de.a.run.app/line/S8GCfmqx2jTFPzsGmySbBItIpMrinhqvIVxVtH3z9aK
+Content-Type: application/json
+
+{
+    "message": "\n訊息 from Node.js"
+}
