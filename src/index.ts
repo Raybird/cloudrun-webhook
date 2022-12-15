@@ -84,10 +84,10 @@ app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) 
     res.json({ result: false, message: 'token no found' })
   }
 
-  const atr = Math.round(body.atr * 100) / 100;
-  const lost = Math.round(body.lost * 100) / 100;
-  const win1 = Math.round(body.win1 * 100) / 100;
-  const win2 = Math.round(body.win2 * 100) / 100;
+  const atr = Math.round(body.atr * 10000) / 10000;
+  const lost = Math.round(body.lost * 10000) / 10000;
+  const win1 = Math.round(body.win1 * 10000) / 10000;
+  const win2 = Math.round(body.win2 * 10000) / 10000;
 
   const message = `\n${body.ticker} ${body.type}\n區間: ${body.interval}\n現價: ${body.close}\n止損: ${lost}\n止盈1: ${win1}\n止盈2: ${win2}\n盈虧值: ${atr}`;
 
