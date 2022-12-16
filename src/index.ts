@@ -1,6 +1,5 @@
 import axios from 'axios';
 import express, { Express, Request, Response } from 'express';
-import qs from 'querystring';
 
 
 const app: Express = express();
@@ -41,9 +40,9 @@ app.post('/btc', express.json(), async (req: Request, res: Response) => {
 });
 
 app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) => {
-  // https://trendinghook-35hnajh7qq-de.a.run.app/line/v2/S8GCfmqx2jTFPzsGmySbBItIpMrinhqvIVxVtH3z9aK
   const token = req.params.token as string;
   const body = req.body as { 
+    exchange?: string,
     ticker: string,
     interval: number;
     type: 'buy'|'sell',
@@ -56,6 +55,7 @@ app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) 
 
   // 空
   // { 
+    // "exchange": "{{exchange}}",
   //   "ticker": "{{ticker}}",
   //   "interval": {{interval}},
   //   "type": "sell",
@@ -68,6 +68,7 @@ app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) 
 
   // 多
   // { 
+    // "exchange": "{{exchange}}",
   //   "ticker": "{{ticker}}",
   //   "interval": {{interval}},
   //   "type": "buy",
@@ -89,7 +90,11 @@ app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) 
   const win1 = Math.round(body.win1 * 10000) / 10000;
   const win2 = Math.round(body.win2 * 10000) / 10000;
 
-  const message = `\n${body.ticker} ${body.type}\n區間: ${body.interval}\n現價: ${body.close}\n止損: ${lost}\n止盈1: ${win1}\n止盈2: ${win2}\n盈虧值: ${atr}`;
+  let message = `\n${body.ticker} \n方向：${body.type}\n區間: ${body.interval}\n現價: ${body.close}\n止損: ${lost}\n止盈1: ${win1}\n止盈2: ${win2}\n盈虧值: ${atr}`;
+
+  if(body.exchange){
+    message = `\nexchange: ${body.exchange} ${message}`;
+  }
 
   console.log('message :>> ', message);
 
@@ -120,7 +125,6 @@ app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) 
 });
 
 app.post('/line/:token', express.json(), async (req: Request, res: Response) => {
-  // https://trendinghook-35hnajh7qq-de.a.run.app/line/S8GCfmqx2jTFPzsGmySbBItIpMrinhqvIVxVtH3z9aK
   const token = req.params.token as string;
   const body = req.body as { message: string };
 
