@@ -91,14 +91,14 @@ app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) 
   const win2 = Math.round(body.win2 * 10000) / 10000;
 
   let message = `
-  \n方向：${body.type === 'buy' ? '多' : '空'}
-  \n幣種${body.ticker} 
-  \n區間: ${body.interval}
-  \n現價: ${body.close}
-  \n止損: ${lost}
-  \n止盈1: ${win1}
-  \n止盈2: ${win2}
-  \n盈虧值: ${atr}`;
+  幣種: ${body.ticker} 
+  方向: ${body.type === 'buy' ? '多' : '空'}
+  現價: ${body.close}
+  止損: ${lost}
+  止盈1: ${win1}
+  止盈2: ${win2}
+  盈虧值: ${atr}
+  區間: ${body.interval}`;
 
   if (body.exchange) {
     message = `${message}\n交易所: ${body.exchange}`;
