@@ -51,6 +51,8 @@ app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) 
     win1: number;
     win2: number;
     atr: number;
+    high: number;
+    low: number;
   };
 
   // 空
@@ -91,18 +93,19 @@ app.post('/line/v2/:token', express.json(), async (req: Request, res: Response) 
   const win2 = Math.round(body.win2 * 10000) / 10000;
 
   let message = `
-  幣種: ${body.ticker} 
-  方向: ${body.type === 'buy' ? '多' : '空'}
+  ${body.type === 'buy' ? '多' : '空'} ${body.ticker} 
   現價: ${body.close}
+  高低: ${body.high} - ${body.low}
+
   止損: ${lost}
+
   止盈1: ${win1}
   止盈2: ${win2}
-  盈虧值: ${atr}
-  區間: ${body.interval}`;
 
-  if (body.exchange) {
-    message = `${message}\n交易所: ${body.exchange}`;
-  }
+  盈虧值: ${atr}
+
+  區間: ${body.interval}
+  交易所: ${body.exchange}`;
 
   console.log('message :>> ', message);
 
